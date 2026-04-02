@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para ti ❤️</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: linear-gradient(#ffe6f0, #ffffff);
+  overflow: hidden;
+}
+
+/* BOTONES */
+button {
+  padding: 12px 22px;
+  font-size: 18px;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+}
+
+#si {
+  background: #FF0000;
+  color: white;
+}
+
+#no {
+  position: absolute;
+  background: #008000;
+  color: white;
+}
+
+/* MENSAJE */
+#mensaje {
+  display: none;
+  margin-top: 30px;
+  padding: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#texto {
+  white-space: pre-line;
+  font-size: 18px;
+}
+
+/* BOTÓN FINAL */
+#finalBtn {
+  display: none;
+  margin-top: 20px;
+  background: #ff4da6;
+  color: white;
+}
+
+/* PANTALLA FINAL */
+#pantallaFinal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#ff99cc, #ffe6f0);
+  color: white;
+  font-size: 30px;
+  padding-top: 150px;
+}
+
+/* CORAZONES */
+.heart {
+  position: fixed;
+  bottom: 0;
+  font-size: 22px;
+  animation: subir 4s linear forwards;
+}
+
+@keyframes subir {
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+/* CONFETI */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: 0;
+  animation: caer 3s linear forwards;
+}
+
+@keyframes caer {
+  to { transform: translateY(100vh); }
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="pregunta">¿Quieres salir?</h1>
+
+<button id="si">NO </button>
+<button id="no">Pasar pag. </button>
+
+<div id="mensaje">
+  <h2>🎉 Feliz Cumpleaños 🎉</h2>
+  <p id="texto"></p>
+  <button id="finalBtn">Toca para tu sorpresa final 🎁</button>
+</div>
+
+<div id="pantallaFinal">
+  💖 FELIZ CUMPLEAÑOS LIZA 💖<br><br>
+  Eres lo mejor que me ha pasado ❤️<br><br>
+  Te amo muchísimo 💘
+<div id="galeria">
+    <img src="https://i.imgur.com/Mc7877f.jpeg" 
+     style="width: 351px;">
+
+</div>
+
+<script>
+// BOTÓN NO
+var no = document.getElementById("no");
+no.onmouseover = function() {
+  no.style.left = Math.random()*300 + "px";
+  no.style.top = Math.random()*300 + "px";
+};
+
+// TEXTO
+var mensaje = `Hola Liza 💖
+
+Wao 19 años… parece que te conozco de toda la vida.
+
+Gracias por ser tan especial, tan linda, tan épica y tan perfecta ✨
+
+Hoy es tu día y quiero que lo disfrutes muchísimo 💕
+
+Porque sabes algo… así se sienten todos los días cuando estoy contigo 💘
+
+Gracias por ser mi todo 💖
+
+Felíz Cumpleaños ❤️`;
+
+// EFECTO MÁQUINA
+function escribirTexto(texto, elemento, callback) {
+  let i = 0;
+  function escribir() {
+    if (i < texto.length) {
+      elemento.innerHTML += texto.charAt(i);
+      i++;
+      setTimeout(escribir, 35);
+    } else {
+      callback();
+    }
+  }
+  escribir();
+}
+
+// BOTÓN SI
+document.getElementById("si").onclick = function() {
+
+  document.getElementById("pregunta").style.display = "none";
+  document.getElementById("si").style.display = "none";
+  document.getElementById("no").style.display = "none";
+
+  document.getElementById("mensaje").style.display = "block";
+
+  escribirTexto(mensaje, document.getElementById("texto"), function() {
+    document.getElementById("finalBtn").style.display = "inline-block";
+  });
+
+  // corazones
+  for (var i = 0; i < 30; i++) {
+    var h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(h);
+  }
+
+};
+
+// BOTÓN FINAL
+document.getElementById("finalBtn").onclick = function() {
+
+  document.getElementById("pantallaFinal").style.display = "block";
+
+  // confeti final
+  for (var i = 0; i < 100; i++) {
+    var c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = "hsl(" + Math.random()*360 + ",100%,70%)";
+    document.body.appendChild(c);
+  }
+
+};
+</script>
+
+</body>
+</html>
